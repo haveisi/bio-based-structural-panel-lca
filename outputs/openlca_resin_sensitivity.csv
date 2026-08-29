@@ -1,0 +1,4 @@
+scenario,resin_proxy_kg_per_m2,gwp100_kgco2e_per_m2
+Low resin,0.4,2.83394
+Base,0.8,4.38938
+High resin,1.2,5.94483

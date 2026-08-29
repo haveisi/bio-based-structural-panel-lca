@@ -1,0 +1,10 @@
+stage,input,value,unit,data_status
+Agriculture,Diesel,0.0053,kg/kg dry biomass,Literature-derived foreground; BAFU RER supply proxy
+Agriculture,"Urea, as N",0.0060,kg/kg dry biomass,Screening nutrient value within published perennial-forage range
+Agriculture,"Triple superphosphate, as P2O5",0.0060,kg/kg dry biomass,Screening nutrient value within published range
+Agriculture,"Potassium sulphate, as K2O",0.0060,kg/kg dry biomass,Screening nutrient value within published range
+Logistics,Road freight distance,40,km,Literature-informed regional screening scenario
+Manufacturing,Delivered dry biomass,8.0,kg/m2,Explicit screening assumption
+Manufacturing,U.S. medium-voltage electricity,2.0,kWh/m2,Explicit screening assumption
+Manufacturing,Phenolic resin background proxy,0.8,kg/m2,Impact proxy only; not Plantd resin chemistry
+Output,Structural panel,1.0,m2,Quantitative reference
