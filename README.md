@@ -1,375 +1,317 @@
-# Plantd vs. OSB: Screening LCA & Product Carbon Methodology
+# Bio-Based Structural Panel LCA  
+## Plantd-Inspired Screening Case vs. Conventional OSB
 
-**Bio-based building materials | Structural panels | Screening LCA | Excel | Python | openLCA-ready workflow**
+**Construction products | 1 m² structural panel | Cradle-to-gate screening | Excel | Python | openLCA 2.6 | BAFU 2026 | IPCC 2021**
 
-## Overview
+---
 
-This project develops a transparent and reproducible **screening-level life cycle assessment workflow** for comparing a perennial-grass structural panel, using Plantd as a public case-study reference, with conventional oriented strand board (OSB).
+## Project at a Glance
 
-The project was originally developed for **teaching, methodological exploration, and LCA workflow development**. It is not a commissioned Plantd study, and it does not represent verified Plantd environmental performance.
+This project develops a transparent, reproducible **screening-level life cycle assessment (LCA)** for a perennial-grass structural panel, using Plantd Materials as a public real-world reference and conventional oriented strand board (OSB) as the comparison pathway.
 
-The purpose is to demonstrate how incomplete public sustainability and technical information can be structured into an LCA framework, how data gaps should be handled explicitly, and what primary information would be required to move toward a decision-grade product LCA or Environmental Product Declaration (EPD).
+The work began as an Excel/Python teaching model and was extended into a linked **openLCA product system** with literature-informed agricultural inputs, BAFU 2026 background datasets, IPCC 2021 GWP100, contribution analysis, and focused sensitivity testing.
+
+> **Important:** This is an independent analytical case study. It was not commissioned, sponsored, reviewed, or verified by Plantd Materials. Results are methodological screening outputs and must not be interpreted as Plantd product-carbon claims.
 
 ---
 
 ## Core Question
 
-**How should a perennial-grass structural panel be compared with conventional OSB on a functionally equivalent and methodologically defensible basis?**
+**How can a perennial-grass structural panel be modeled on a functionally consistent basis, and which foreground assumptions matter most before a rigorous comparison with OSB is attempted?**
 
-The project focuses less on producing a definitive carbon number and more on building the analytical structure needed to answer that question rigorously.
-
----
-
-## Functional Unit
-
-**1 m² of structural panel used for wall or roof sheathing**, assuming equivalent functional performance.
-
-A full comparative LCA would require confirmation that the compared products provide equivalent structural performance, thickness, service function, and application.
+The emphasis is not on claiming a definitive carbon advantage. The emphasis is on building the **data architecture, LCA logic, QA checks, and sensitivity framework** needed to move from public information toward decision-grade product LCA and EPD readiness.
 
 ---
 
-## System Boundary
+## Functional Unit and System Boundary
 
-**Cradle-to-gate screening boundary**
+- **Functional unit:** 1 m² of structural panel for wall or roof sheathing
+- **Boundary:** cradle-to-gate screening
+- **Foreground chain:** perennial-grass production → biomass transport → panel manufacturing
+- **LCIA method:** IPCC 2021 GWP100
+- **LCA software:** openLCA 2.6
+- **Background database:** BAFU 2026 v1.1
 
-The model is structured around:
-
-* biomass production
-* biomass transportation
-* binder or resin inputs
-* manufacturing electricity
-* thermal energy / drying / pressing
-* production yield and process losses
-* packaging
-* finished structural panel
-
-The current screening model does not represent a complete product life cycle.
+A public comparative claim against OSB would still require verified functional equivalence, matched background data, consistent PCR rules, and comparable data quality.
 
 ---
 
-## Methodological Framework
+## Implemented openLCA Product System
 
-The project follows the general logic of:
+The current model links agricultural inputs, biomass logistics, manufacturing electricity, and a resin background proxy into one product system.
 
-* ISO 14040: Life Cycle Assessment principles and framework
-* ISO 14044: LCA requirements and guidance
-* ISO 14025: Type III environmental declarations
-* ISO 21930: Environmental declarations for building products
+<p align="center">
+  <img src="docs/openlca_product_system.png" alt="openLCA product system for perennial-grass structural panel" width="950">
+</p>
 
-These standards are used as methodological references only. This project has not undergone third-party review or verification.
+**Foreground structure**
+
+`Agriculture → Biomass transport → Panel manufacturing → 1 m² structural panel`
+
+Upstream providers include fertilizer production, diesel, road freight, U.S. grid electricity, and resin production.
 
 ---
 
-## Data Sources
+## Base-Case Foreground Inventory
 
-The screening workflow draws from:
+| Stage | Input | Base value | Data status |
+|---|---|---:|---|
+| Agriculture | Diesel | 0.0053 kg/kg dry biomass | literature-derived foreground; BAFU RER supply proxy |
+| Agriculture | Urea, as N | 0.0060 kg/kg dry biomass | screening value within published perennial-forage range |
+| Agriculture | Triple superphosphate, as P₂O₅ | 0.0060 kg/kg dry biomass | screening value within published range |
+| Agriculture | Potassium sulphate, as K₂O | 0.0060 kg/kg dry biomass | screening value within published range |
+| Logistics | Road freight distance | 40 km | literature-informed regional scenario |
+| Manufacturing | Delivered dry biomass | 8.0 kg/m² | explicit screening assumption |
+| Manufacturing | U.S. medium-voltage electricity | 2.0 kWh/m² | explicit screening assumption |
+| Manufacturing | Phenolic resin background proxy | 0.8 kg/m² | impact proxy only; not Plantd resin chemistry |
+| Output | Structural panel | 1.0 m² | quantitative reference |
 
-* publicly available Plantd technical and product information
-* published LCA literature on bio-based structural panels
-* conventional wood-panel and OSB studies
-* public construction-material environmental data
-* illustrative assumptions used to demonstrate the modeling workflow
+### Data hierarchy
 
-### Important Data Classification
+**Public case context**  
+Plantd publicly describes a perennial-grass structural panel, a formaldehyde-free resin system, and an all-electric manufacturing platform.
 
-Inputs are separated conceptually into:
+**Literature-grounded inputs**  
+Perennial-forage LCI literature is used to structure agricultural inputs and ranges. Biobased-construction supply-chain literature informs the agriculture–logistics–manufacturing framing and transport scenarios.
 
-**Primary / company-specific data**
-Data directly supplied by a manufacturer.
+**Explicit assumptions / proxies**  
+Panel mass, resin loading, manufacturing electricity intensity, transport distance, and several BAFU background providers are screening assumptions or proxies rather than Plantd primary data.
 
-**Secondary data**
-Published literature, EPDs, databases, or other external sources.
+---
 
-**Illustrative assumptions**
-Values introduced only to demonstrate the model structure when required information is unavailable.
+## Base Screening Result
 
-The current model relies substantially on secondary information and illustrative assumptions because a complete Plantd life-cycle inventory is not publicly available.
+For the base configuration:
+
+> ### **4.39 kg CO₂e/m²**
+> **IPCC 2021 GWP100 = 4.38938 kg CO₂e per 1 m² structural panel**
+
+<p align="center">
+  <img src="docs/openlca_gwp100_overview.png" alt="openLCA IPCC 2021 GWP100 result overview" width="900">
+</p>
+
+This value is **not a verified Plantd product carbon footprint**. It is the result of the foreground assumptions and background proxies documented above.
+
+---
+
+## Hotspot Analysis
+
+The openLCA contribution analysis shows that the selected resin proxy dominates the base-case result.
+
+| Foreground branch | Contribution | GWP contribution |
+|---|---:|---:|
+| Generic phenolic-resin proxy | **70.87%** | **3.11088 kg CO₂e/m²** |
+| U.S. grid electricity | **19.24%** | **0.84435 kg CO₂e/m²** |
+| Grass production + transport | **9.89%** | **0.43415 kg CO₂e/m²** |
+
+<p align="center">
+  <img src="docs/openlca_gwp100_contribution_tree.png" alt="openLCA GWP100 contribution tree" width="900">
+</p>
+
+### What this means
+
+The model is **binder-dominated under the selected assumptions**. That makes resin chemistry and resin loading the first primary-data questions to resolve. Manufacturing electricity intensity is the second priority, followed by agricultural and logistics parameters.
+
+This is more useful than a single headline carbon number because it identifies **where better primary data would materially improve the model**.
+
+---
+
+## Focused Sensitivity: Resin Loading
+
+Because resin is both uncertain and the largest modeled hotspot, I tested three resin-loading cases while holding biomass, electricity, transport, and the functional unit constant.
+
+<p align="center">
+  <img src="docs/openlca_resin_sensitivity.png" alt="Resin loading sensitivity for GWP100" width="760">
+</p>
+
+| Resin proxy loading | IPCC 2021 GWP100 |
+|---:|---:|
+| 0.4 kg/m² | **2.83394 kg CO₂e/m²** |
+| 0.8 kg/m² | **4.38938 kg CO₂e/m²** |
+| 1.2 kg/m² | **5.94483 kg CO₂e/m²** |
+
+This is **not a Plantd formulation range**. It is a model stress test showing that binder quantity and chemistry can materially change the result.
 
 ---
 
 ## Analytical Workflow
 
-### 1. Data Extraction
+### 1. Data extraction
+Public technical information and literature inputs are organized in Excel.
 
-Technical information and literature inputs are compiled into a structured Excel dataset.
-
-### 2. Data Cleaning and Structuring
-
+### 2. Data cleaning and structuring
 `src/02_clean_openlca_inputs.py`
 
-The workflow:
+- standardizes variable names
+- separates data classes
+- flags assumptions and missing data
+- prepares modeling inputs
+- exports a clean input table
 
-* standardizes variable names
-* separates input categories
-* flags assumptions and missing data
-* prepares modeling inputs
-* exports a cleaned dataset
-
-### 3. Screening Model Development
-
+### 3. Python screening model
 `src/03_build_screening_model.py`
 
-The script:
-
-* establishes illustrative OSB benchmark scenarios
-* creates illustrative perennial-grass panel scenarios
-* calculates comparative screening outputs
-* supports sensitivity analysis
+- develops illustrative low/mid/high scenarios
+- supports sensitivity analysis
+- tests model logic before professional LCA implementation
 
 ### 4. Visualization
-
 `src/04_make_chart.py`
 
-Creates comparative figures for interpreting screening scenarios.
+- creates screening plots for scenario interpretation
 
-### 5. Foreground LCA Structure
-
+### 5. LCA foreground structure
 `src/05_build_lca_structure.py`
 
-The workflow translates the extracted information into simplified LCA-style process flows that can support later implementation in professional LCA software.
+- converts structured inputs into LCA-style process relationships
+
+### 6. openLCA implementation
+The foreground system is implemented in openLCA and linked to BAFU 2026 background processes for:
+
+- electricity
+- diesel
+- fertilizers
+- freight transport
+- resin production
+
+The final base case is calculated with **IPCC 2021 GWP100**.
 
 ---
 
-## Illustrative Screening Scenarios
+## What the Earlier Python Scenarios Mean
 
-**The values below are hypothetical scenario values used to demonstrate the analytical workflow. They are not Plantd primary-data results and should not be interpreted as estimates or claims regarding Plantd's actual environmental performance.**
+The earlier Python workflow used hypothetical low/mid/high GWP values to test data cleaning, scenario logic, and visualization.
 
-| Illustrative Scenario        | GWP (kg CO₂e/m²) |
-| ---------------------------- | ---------------: |
-| OSB - Low                    |               20 |
-| OSB - Mid                    |               25 |
-| OSB - High                   |               30 |
-| Perennial-grass panel - Low  |               10 |
-| Perennial-grass panel - Mid  |               14 |
-| Perennial-grass panel - High |               18 |
+Those outputs remain in `outputs/` for reproducibility, but they are **not evidence of Plantd or OSB environmental performance** and should not be interpreted as a comparative claim.
 
-These values are retained only to demonstrate scenario comparison, sensitivity analysis, and model functionality.
-
-No comparative environmental claim should be drawn from these values.
+The implemented openLCA model is now the stronger methodological layer and is the focus of this repository.
 
 ---
 
-## What the Screening Exercise Actually Shows
+## Key Data Needed for a Decision-Grade Study
 
-The most important result of this project is not a single carbon number.
+A manufacturer-supported LCA would materially improve the model by replacing proxies with primary data for:
 
-The exercise identifies the **primary data required to determine the environmental performance of a perennial-grass structural panel rigorously**.
+**Agriculture**
+- yield and establishment cycle
+- fertilizer and soil amendments
+- field fuel
+- irrigation
+- harvesting
+- moisture and losses
+- soil-carbon treatment
 
-Key data gaps include:
+**Materials**
+- panel mass per m²
+- biomass fraction
+- resin chemistry and loading
+- additives
+- packaging
 
-### Agricultural Inputs
+**Manufacturing**
+- electricity per unit output
+- electricity sourcing
+- thermal energy
+- drying / pressing
+- yield and process losses
+- production residues
 
-* biomass yield per acre or hectare
-* establishment period
-* fertilizer and soil amendment inputs
-* field fuel consumption
-* irrigation, where applicable
-* harvesting operations
-* soil-carbon assumptions
-* moisture content
-* biomass losses
+**Logistics**
+- actual farm-to-factory distances
+- truck classes and payloads
+- inbound/outbound logistics
 
-### Materials
+**Carbon accounting**
+- biogenic carbon uptake
+- carbon stored in the finished panel
+- temporary storage methodology
+- coproduct allocation
+- treatment of residues / biochar pathways
 
-* panel mass per functional unit
-* biomass content
-* binder or resin type
-* binder proportion
-* additives
-* packaging materials
-
-### Manufacturing
-
-* electricity consumption
-* electricity source or grid mix
-* thermal-energy requirements
-* drying energy
-* pressing energy
-* production yield
-* process waste
-* recycled or reused process material
-
-### Logistics
-
-* farm-to-factory distance
-* transportation mode
-* inbound material logistics
-* packaging and outbound assumptions
-
-### Carbon Accounting
-
-* biogenic carbon uptake
-* carbon retained in the finished product
-* treatment of temporary carbon storage
-* coproduct allocation
-* treatment of biomass residues
-* potential biochar pathways
-
-### Functional Equivalence
-
-* panel dimensions
-* density
-* thickness
-* structural performance
-* service-life assumptions
-* equivalent OSB reference product
-
-These variables are likely to have significantly more influence on the reliability of the final comparison than the calculation code itself.
+**Functional equivalence**
+- thickness
+- density
+- structural performance
+- service life
+- matched OSB reference product
 
 ---
 
-## Current Interpretation
+## Path to Product LCA / EPD Readiness
 
-The screening model demonstrates that a perennial-grass structural panel can be modeled using a conventional LCA framework and compared with OSB under a consistent functional basis.
+A decision-grade extension would follow six steps:
 
-However, **publicly available information is currently insufficient to support a defensible quantitative comparative environmental claim for Plantd products**.
-
-A decision-grade assessment would require manufacturer-specific agricultural and manufacturing data, an appropriate OSB benchmark, recognized background datasets, defined biogenic-carbon treatment, and applicable PCR requirements.
-
----
-
-## Path to a Decision-Grade Product LCA
-
-A stronger assessment would proceed through the following stages.
-
-### Phase 1: Primary Data Inventory
-
-Develop a detailed foreground inventory covering:
-
-* agricultural production
-* biomass logistics
-* panel material composition
-* factory energy
-* process yield
-* packaging
-* production residues
-
-### Phase 2: Background LCA Modeling
-
-Connect the foreground inventory with recognized background datasets for:
-
-* electricity
-* transportation
-* fertilizers
-* resins
-* fuels
-* packaging
-* conventional OSB production
-
-### Phase 3: LCIA
-
-Apply recognized impact-assessment methods and report relevant indicators.
-
-For construction-product applications, the final methodology should be selected according to the applicable PCR and EPD program requirements.
-
-### Phase 4: Comparative Analysis
-
-Compare Plantd-type panels against functionally equivalent OSB using:
-
-* equivalent performance
-* equivalent functional unit
-* consistent boundaries
-* consistent impact methods
-* transparent data-quality assumptions
-
-### Phase 5:ensitivity and Uncertainty
-
-Test the variables most likely to control the result, including:
-
-* biomass yield
-* resin content
-* electricity intensity
-* logistics
-* manufacturing efficiency
-* carbon-storage assumptions
-* allocation method
-
-### Phase 6: EPD Readiness
-
-Assess the model against the applicable:
-
-* PCR
-* ISO 14025 requirements
-* ISO 21930 requirements
-* program-operator rules
-* third-party verification requirements
+1. **Primary-data inventory** — agriculture, material composition, factory energy, logistics, yield, residues
+2. **Background modeling** — connect primary foreground data to recognized databases
+3. **LCIA** — apply method(s) required by the governing PCR / EPD program
+4. **Functional comparison** — compare only functionally equivalent products using consistent rules
+5. **Sensitivity and uncertainty** — test resin, electricity, biomass yield, logistics, allocation, and carbon-storage assumptions
+6. **EPD readiness** — align with PCR, ISO 14025, ISO 21930, program-operator rules, and independent verification
 
 ---
 
-## Potential Extension: Integrated Panel + Biochar Carbon Model
+## Methodological References
 
-Plantd's evolving biomass system also creates an important future LCA question around production residues and biochar.
+The project follows the general logic of:
 
-A broader model could represent:
+- **ISO 14040 / ISO 14044** — LCA principles, requirements, inventory, LCIA, and interpretation
+- **ISO 14025** — Type III environmental declarations
+- **ISO 21930** — environmental declarations for building products
 
-**Perennial grass cultivation**
-
-→ harvesting
-→ biomass transport
-→ panel manufacturing
-
-followed by two product pathways:
-
-**Structural panel**
-
-and
-
-**Biochar / biomass coproduct**
-
-This would require explicit treatment of:
-
-* coproduct allocation
-* biogenic carbon
-* stable carbon storage
-* production residues
-* soil application
-* avoided-product assumptions
-* end-of-life pathways
-
-This extension could connect agricultural LCA, product LCA, circularity, and carbon-removal accounting within one system.
+These standards are methodological references only. This project has not undergone third-party review or conformity assessment.
 
 ---
 
-## Outputs
+## Evidence Base
 
-Current project outputs include:
-
-* `outputs/openlca_input_table_clean.csv`
-* `outputs/screening_gwp_results.csv`
-* `outputs/plantd_lca_structure.csv`
-* `outputs/plantd_vs_osb_screening_chart.png`
-
-These outputs support methodological demonstration and future model refinement.
+- Plantd Materials — public product and company information
+- Pogue, S.J. et al. (2024). *Regionalized life cycle inventory data collection and calculation for perennial forage production in Canada*. **The International Journal of Life Cycle Assessment, 29**, 2226–2256. DOI: `10.1007/s11367-023-02199-1`
+- Daly, P. (2026). *Developing strategic supply chain pathways for application of agricultural crops as biobased construction materials, products and modular systems*. DOI: `10.2478/jlst-2026-0003`
+- BAFU 2026 v1.1 background inventory
+- openLCA LCIA Methods 2.8.0 adapted — IPCC 2021 GWP100
 
 ---
 
-## Project Structure
+## Key Outputs
+
+| File | Purpose |
+|---|---|
+| `outputs/openlca_base_case_inventory.csv` | documented base foreground assumptions |
+| `outputs/openlca_gwp100_contributions.csv` | first-level hotspot contribution results |
+| `outputs/openlca_resin_sensitivity.csv` | resin-loading sensitivity results |
+| `outputs/openlca_input_table_clean.csv` | cleaned structured LCA inputs |
+| `outputs/plantd_lca_structure.csv` | simplified process structure |
+| `outputs/screening_gwp_results.csv` | legacy Python teaching scenarios |
+
+Supporting figures and methodology files are stored in `docs/`.
+
+---
+
+## Repository Structure
 
 ```text
-plantd-osb-lca/
+bio-based-structural-panel-lca/
 │
 ├── data/
-│   └── Plantd_openLCA_extracted_dataset.xlsx
+├── docs/
+│   ├── methodology.md
+│   ├── methodology_openlca.md
+│   ├── openlca_product_system.png
+│   ├── openlca_gwp100_overview.png
+│   ├── openlca_gwp100_contribution_tree.png
+│   └── openlca_resin_sensitivity.png
 │
 ├── outputs/
+│   ├── openlca_base_case_inventory.csv
+│   ├── openlca_gwp100_contributions.csv
+│   ├── openlca_resin_sensitivity.csv
 │   ├── openlca_input_table_clean.csv
-│   ├── screening_gwp_results.csv
 │   ├── plantd_lca_structure.csv
-│   └── plantd_vs_osb_screening_chart.png
+│   └── screening_gwp_results.csv
 │
 ├── src/
-│   ├── 01_read_excel.py
-│   ├── 02_clean_openlca_inputs.py
-│   ├── 03_build_screening_model.py
-│   ├── 04_make_chart.py
-│   └── 05_build_lca_structure.py
-│
-├── docs/
-│   └── methodology.md
-│
-├── README.md
-├── requirements.txt
-└── .gitignore
+├── main.py
+└── README.md
 ```
 
 ---
@@ -378,43 +320,29 @@ plantd-osb-lca/
 
 This case demonstrates the ability to:
 
-* define an LCA goal, functional unit, and system boundary
-* structure incomplete product data into an LCI framework
-* distinguish primary data, secondary data, and assumptions
-* avoid presenting unsupported estimates as environmental claims
-* build reproducible Excel and Python workflows
-* develop simplified foreground-process models
-* identify LCA data-quality gaps
-* design sensitivity and scenario analyses
-* prepare data structures for openLCA or similar professional tools
-* translate a screening model into a roadmap for a decision-grade product LCA
-* connect product sustainability analysis with EPD readiness and commercial decision support
+- define a defensible functional unit and system boundary
+- distinguish public facts, literature data, proxies, and assumptions
+- structure incomplete product information into an auditable LCI
+- build reproducible Excel and Python workflows
+- implement and link foreground/background processes in openLCA
+- calculate IPCC 2021 GWP100
+- perform contribution analysis and numerical QA
+- identify hotspot drivers
+- use sensitivity analysis to prioritize primary-data collection
+- translate a screening model into a roadmap for product LCA and EPD readiness
 
 ---
 
-## Intended Use
+## Intended Use and Disclaimer
 
 This repository is intended for:
 
-* LCA methodology learning
-* product-sustainability analysis
-* teaching
-* portfolio demonstration
-* scenario development
-* exploration of data requirements for bio-based construction products
+- LCA methodology learning
+- product-sustainability analysis
+- portfolio demonstration
+- scenario development
+- exploration of bio-based construction-product LCA
 
-It is **not** intended for public comparative environmental claims, marketing claims, regulatory reporting, or verified EPD publication.
+It is **not** intended for advertising, regulatory reporting, comparative environmental claims, or verified EPD publication.
 
----
-
-## Disclaimer
-
-This is an **independent educational and analytical case study**.
-
-It was not commissioned, sponsored, reviewed, or verified by Plantd Materials.
-
-Plantd is referenced because publicly available information about its perennial-grass structural-panel system provides a useful real-world case for exploring product LCA methodology.
-
-Illustrative scenario values in this repository are not Plantd operational data and do not represent Plantd's actual product carbon footprint.
-
-Any commercial or comparative environmental claim would require appropriate primary data, methodological review, applicable PCR requirements, and independent verification where required.
+Plantd Materials did not commission, sponsor, review, or verify this work. Any decision-grade or comparative assessment would require manufacturer-specific inventory data, applicable PCR / EPD program requirements, consistent comparative rules, and independent review where required.
