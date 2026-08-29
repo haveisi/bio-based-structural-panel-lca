@@ -1,4 +1,4 @@
-# Plantd vs. OSB — Screening LCA & Product Carbon Methodology
+# Plantd vs. OSB: Screening LCA & Product Carbon Methodology
 
 **Bio-based building materials | Structural panels | Screening LCA | Excel | Python | openLCA-ready workflow**
 
@@ -51,10 +51,10 @@ The current screening model does not represent a complete product life cycle.
 
 The project follows the general logic of:
 
-* ISO 14040 — Life Cycle Assessment principles and framework
-* ISO 14044 — LCA requirements and guidance
-* ISO 14025 — Type III environmental declarations
-* ISO 21930 — Environmental declarations for building products
+* ISO 14040: Life Cycle Assessment principles and framework
+* ISO 14044: LCA requirements and guidance
+* ISO 14025: Type III environmental declarations
+* ISO 21930: Environmental declarations for building products
 
 These standards are used as methodological references only. This project has not undergone third-party review or verification.
 
@@ -136,12 +136,12 @@ The workflow translates the extracted information into simplified LCA-style proc
 
 | Illustrative Scenario        | GWP (kg CO₂e/m²) |
 | ---------------------------- | ---------------: |
-| OSB — Low                    |               20 |
-| OSB — Mid                    |               25 |
-| OSB — High                   |               30 |
-| Perennial-grass panel — Low  |               10 |
-| Perennial-grass panel — Mid  |               14 |
-| Perennial-grass panel — High |               18 |
+| OSB - Low                    |               20 |
+| OSB - Mid                    |               25 |
+| OSB - High                   |               30 |
+| Perennial-grass panel - Low  |               10 |
+| Perennial-grass panel - Mid  |               14 |
+| Perennial-grass panel - High |               18 |
 
 These values are retained only to demonstrate scenario comparison, sensitivity analysis, and model functionality.
 
@@ -232,7 +232,7 @@ A decision-grade assessment would require manufacturer-specific agricultural and
 
 A stronger assessment would proceed through the following stages.
 
-### Phase 1 — Primary Data Inventory
+### Phase 1: Primary Data Inventory
 
 Develop a detailed foreground inventory covering:
 
@@ -244,7 +244,7 @@ Develop a detailed foreground inventory covering:
 * packaging
 * production residues
 
-### Phase 2 — Background LCA Modeling
+### Phase 2: Background LCA Modeling
 
 Connect the foreground inventory with recognized background datasets for:
 
@@ -256,13 +256,13 @@ Connect the foreground inventory with recognized background datasets for:
 * packaging
 * conventional OSB production
 
-### Phase 3 — LCIA
+### Phase 3: LCIA
 
 Apply recognized impact-assessment methods and report relevant indicators.
 
 For construction-product applications, the final methodology should be selected according to the applicable PCR and EPD program requirements.
 
-### Phase 4 — Comparative Analysis
+### Phase 4: Comparative Analysis
 
 Compare Plantd-type panels against functionally equivalent OSB using:
 
@@ -272,7 +272,7 @@ Compare Plantd-type panels against functionally equivalent OSB using:
 * consistent impact methods
 * transparent data-quality assumptions
 
-### Phase 5 — Sensitivity and Uncertainty
+### Phase 5:ensitivity and Uncertainty
 
 Test the variables most likely to control the result, including:
 
@@ -284,7 +284,7 @@ Test the variables most likely to control the result, including:
 * carbon-storage assumptions
 * allocation method
 
-### Phase 6 — EPD Readiness
+### Phase 6: EPD Readiness
 
 Assess the model against the applicable:
 
